@@ -150,3 +150,7 @@ input[type="number"]:focus {
 .container {
 	padding-bottom: 10px;
 }
+
+table {
+	padding-bottom: 10px;
+}
