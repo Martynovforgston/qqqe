@@ -4,35 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Авторизация</title>
-
-<style type="text/css">
-body {
-	font-family: Arial, Helvetica, sans-serif;
-}
-
-input[type=text], input[type=password] {
-	width: 20%;
-	padding: 12px 20px;
-	margin: 8px 0;
-	display: inline-block;
-	border: 1px solid #ccc;
-	box-sizing: border-box;
-}
-
-button {
-	background-color: #3775dd; 
-	color: white;
-	padding: 14px 20px;
-	margin: 8px 0;
-	border: none;
-	cursor: pointer;
-	width: 20%;
-}
-
-button: hover {
-	background-color:#002fed;
-}
-</style>
+	<link rel="stylesheet" href="style.css">
 </head>
 <body>
 	<form action="${pageContext.request.contextPath}/login" method="post" align="center">
@@ -40,10 +12,10 @@ button: hover {
 			<h1 align="center">Авторизация</h1>
 		</div>
 		<div class="container">
-			<label for="login">Login</label><br> <input type="text"name="login" id="login" value="${login}" placeholder="Enter login">
-			<br> <label for="password">Password</label><br> <input type="password" name="password" id="password" value="${password}" placeholder="Enter password"> <br>
+			<label for="login">Логин</label><br> <input type="text"name="login" id="login" value="${login}" placeholder="Введите логин">
+			<br> <label for="password">Пароль</label><br> <input type="password" name="password" id="password" value="${password}" placeholder="Введите пароль"> <br>
 			<p style='color: red;'>${message}</p>
-			<button type="submit" name="sign" value="Sign">Sign</button>
+			<button type="submit" name="sign" value="Sign">Войти</button>
 		</div>
 	</form>
 </body>

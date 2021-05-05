@@ -4,43 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Админ-панель</title>
-
-<style>
-body {font-family: Arial, Helvetica, sans-serif;}
-
-.btn {
-	background-color: #3775dd;
-	color: white;
-	padding: 14px 20px;
-	margin: 8px 0;
-	border: none;
-	cursor: pointer;
-	width: 100%;
-}
-.btn: hover {
-	background-color: #002fed;
-}
-
-input[type="number"]{
-	background-color: #eee;
-	vertical-align: top;
-	outline: none;
-	padding: 0;
-	height: 40px;
-	line-height: 40px;
-	text-indent: 10px;
-	display: inline-block;
-	width: 100%;
-	box-sizing: border-box;
-	border: 1px solid #ddd;
-	font-size: 14px;
-	border-radius: 3px;
-}
-
-input[type="number"]:focus {
-	outline: 2px solid blue;
-}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 <form action = "${pageContext.request.contextPath}/admin" method="post" id="Admin">
@@ -83,7 +47,7 @@ input[type="number"]:focus {
 
 		<tr>
 		<td colspan=2>
-			<button type="submit" name="saveChange" class=btn> Сохранить изменения</button>
+			<button type="submit" name="saveChange" class=btnAdmin> Сохранить изменения</button>
 		</td>
 		</tr>
 
