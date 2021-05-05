@@ -28,7 +28,7 @@
 	
 	<form action="${pageContext.request.contextPath}/calculator"
 		method="post" id="Calculator">
-		<div class="container">
+		<div class="container"> <br>
 			<label for="district"> Район города </label> 
 			<select name="district" id="district" form="Calculator" class="selDis" required>
 				<option value="Kalininsky">Калининский</option>
@@ -39,7 +39,7 @@
 				<option value="Demsky">Демский</option>
 				<option value="Sovetsky">Советский</option>
 			</select> <br>
-			<table border="0" cellpadding="5%" align=left>
+			<table border="0" cellpadding="5%">
 				<tr>
 					<td><label for="1Leaf">Одностворчатых окон</label></td>
 					<td><label for="2Leaf">Двустворчатых окон</label></td>
@@ -55,7 +55,7 @@
 					<input type="number" id="Floor" name="Floor" min="0" max="200" value="${countM2}"></td>
 				</tr>
 			</table>
-
+			<br>
 			<input type="checkbox" name="on" value="${isOn}"> Включить услугу мытья санузла<br> 
 			<label for="promo">Промокод</label> 
 			<input type="text" name="promo" id="promo" value="${promo}" placeholder="Enter promo"> <br> 
