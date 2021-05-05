@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,7 +20,7 @@ input[type=text], input[type=password] {
 }
 
 button {
-	background-color: #4CAF50;
+	background-color: #3775dd; 
 	color: white;
 	padding: 14px 20px;
 	margin: 8px 0;
@@ -31,26 +30,21 @@ button {
 }
 
 button: hover {
-	background-color:;
+	background-color:#002fed;
 }
 </style>
 </head>
 <body>
-	<form action="${pageContext.request.contextPath}/login" method="post"
-		align="center">
+	<form action="${pageContext.request.contextPath}/login" method="post" align="center">
 		<div class="header">
 			<h1 align="center">Авторизация</h1>
 		</div>
 		<div class="container">
-			<label for="login">Login</label><br> <input type="text"
-				name="login" id="login" value="${login}" placeholder="Enter login">
-			<br> <label for="password">Password</label><br> <input
-				type="password" name="password" id="password" value="${password}"
-				placeholder="Enter password"> <br>
+			<label for="login">Login</label><br> <input type="text"name="login" id="login" value="${login}" placeholder="Enter login">
+			<br> <label for="password">Password</label><br> <input type="password" name="password" id="password" value="${password}" placeholder="Enter password"> <br>
 			<p style='color: red;'>${message}</p>
 			<button type="submit" name="sign" value="Sign">Sign</button>
 		</div>
 	</form>
-	<div></div>
 </body>
 </html>
