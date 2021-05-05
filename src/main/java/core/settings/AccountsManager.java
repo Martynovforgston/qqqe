@@ -17,7 +17,7 @@ public class AccountsManager extends SettingsBase<PropertyGeneric<Account>> {
 		if (!Helper.TryCreateFile(filePath))
 			return false;
 		
-		try (BufferedReader reader = new BufferedReader(new FileReader(filePath, java.nio.charset.StandardCharsets.UTF_8))) {
+		try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
 
 			String line;
 
