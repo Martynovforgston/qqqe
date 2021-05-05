@@ -39,7 +39,7 @@
 				<option value="Demsky">Демский</option>
 				<option value="Sovetsky">Советский</option>
 			</select> <br>
-			<table border="0" cellpadding="5%">
+			<table border="0" cellpadding="5%" align=left>
 				<tr>
 					<td><label for="1Leaf">Одностворчатых окон</label></td>
 					<td><label for="2Leaf">Двустворчатых окон</label></td>

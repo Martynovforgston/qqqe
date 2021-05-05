@@ -15,7 +15,7 @@
 			<label for="login">Логин</label><br> <input type="text"name="login" id="login" value="${login}" placeholder="Введите логин">
 			<br> <label for="password">Пароль</label><br> <input type="password" name="password" id="password" value="${password}" placeholder="Введите пароль"> <br>
 			<p style='color: red;'>${message}</p>
-			<button type="submit" name="sign" value="Sign">Войти</button>
+			<button type="submit" name="sign" value="Sign" class="btn">Войти</button>
 		</div>
 	</form>
 </body>
