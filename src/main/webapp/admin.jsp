@@ -47,7 +47,7 @@
 
 		<tr>
 		<td colspan=2>
-			<button type="submit" name="saveChange" class="btnAdmin"> Сохранить изменения</button>
+			<button type="submit" name="saveChange" class="btn"> Сохранить изменения</button>
 		</td>
 		</tr>
 
