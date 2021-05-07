@@ -7,9 +7,9 @@
 	<link rel="stylesheet" href="style.css">
 </head>
 <body>
-	<form action="${pageContext.request.contextPath}/login" method="post" align="center">
+	<form action="${pageContext.request.contextPath}/login" method="post" style="text-align=center;">
 		<div class="header">
-			<h1 align="center">Авторизация</h1>
+			<h2>Вход в калькулятор клининговых услуг для квартир</h2>
 		</div>
 		<div class="container">
 			<label for="login">Логин</label><br> <input type="text"name="login" id="login" value="${login}" placeholder="Введите логин">
