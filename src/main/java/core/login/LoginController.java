@@ -1,25 +1,24 @@
 package core.login;
 
-import java.util.ArrayList;
-import java.util.List;
+import core.settings.AccountsManager;
+import core.settings.PropertyGeneric;
 
 public class LoginController {
 
-	private List<Account> accounts;
+	private AccountsManager accounts;
 	
 	public LoginController() {
-		this.accounts = new ArrayList<Account>();
-		this.accounts.add(new Account("user", "user", false));
-		this.accounts.add(new Account("admin", "admin", true));
+		this.accounts = new AccountsManager();
+		this.accounts.load();
 	}
 	
 	public Account login(String username, String password) {
-		for (Account account: this.accounts) {
-			if (account.getUsername().equals(username) & account.getPassword().equals(password)) {
-				return account;
+		for (PropertyGeneric<Account> account: this.accounts.getAll()) {
+			Account instance = account.getValue();
+			if (instance.getUsername().equals(username) & instance.getPassword().equals(password)) {
+				return instance;
 			}
 		}
-		
 		return null;
 	}
 	
