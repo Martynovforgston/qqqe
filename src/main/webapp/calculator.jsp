@@ -8,6 +8,13 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+<script type="text/javascript">
+function openWindow() {
+	myWindow=open("aboutProgram.html", "О программе", "width=400px, height=400px, status=no; tollbar=no, menubar=no, scrollbar=no");
+}
+</script> 
+
 <div class="navbar">
 	<div class="dropdown">
 		<button class="dropbtn">Файл</button>
@@ -19,7 +26,7 @@
 	<div class="dropdown">
 		<button class="dropbtn">Справка</button>
 			<div class="dropdown-content">
-				<a href="#">О программе</a>
+				<a href="javascript:{openWindow()}">О программе</a>
 			</div>
 	</div>
 </div> 
