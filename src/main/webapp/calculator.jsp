@@ -11,7 +11,7 @@
 
 <script type="text/javascript">
 function openWindow() {
-	myWindow=open("aboutProgram.html", "О программе", "width=400px, height=400px, status=no; tollbar=no, menubar=no, scrollbar=no");
+	myWindow=open("aboutProgram.html", "О программе", "width=450px, height=400px, status=no; tollbar=no, menubar=no, scrollbar=no");
 }
 </script> 
 
@@ -63,7 +63,7 @@ function openWindow() {
 			</table>
 			
 			<input type="checkbox" name="on" value="${isOn}"> Включить услугу мытья санузла<br> 
-			<label for="promo">Промокод</label> 
+			<label for="promo">Промокод </label> 
 			<input type="text" name="promo" id="promo" value="${promo}" placeholder="Введите промокод"> <br> 
 			<label for="promo">Стоимость</label>
 
