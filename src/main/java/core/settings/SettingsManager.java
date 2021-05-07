@@ -1,6 +1,10 @@
 package core.settings;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import core.utils.Helper;
 
 public class SettingsManager extends SettingsBase<Property> {
@@ -16,7 +20,7 @@ public class SettingsManager extends SettingsBase<Property> {
 	public PropertyGeneric<Float> SovetskiyCoeff = new PropertyGeneric<Float>("Sovetsky", 1.1);
 
 	public SettingsManager() {
-		// Добавляем свойства в список
+		// РРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј РЅР°СЃС‚СЂРѕР№РєРё
 		super.properties.add(KalininskyCoeff);
 		super.properties.add(DemskyCoeff);
 		super.properties.add(KirovskyCoeff);
@@ -28,11 +32,11 @@ public class SettingsManager extends SettingsBase<Property> {
 
 	@Override
 	public boolean load() {
-		// Файл не существует, загрузка невозможна
+		// Р В¤Р В°Р в„–Р В» Р Р…Р Вµ РЎРѓРЎС“РЎвЂ°Р ВµРЎРѓРЎвЂљР Р†РЎС“Р ВµРЎвЂљ, Р В·Р В°Р С–РЎР‚РЎС“Р В·Р С”Р В° Р Р…Р ВµР Р†Р С•Р В·Р СР С•Р В¶Р Р…Р В°
 		if (!Helper.TryCreateFile(filePath))
 			return false;
 		
-		try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+		try (BufferedReader reader = Files.newBufferedReader(Paths.get(filePath), StandardCharsets.UTF_8)) {
 
 			String line;
 
@@ -44,7 +48,7 @@ public class SettingsManager extends SettingsBase<Property> {
 				
 				Property property = super.find(data[0]);
 
-				// Обновление существующей настройки
+				// Р С›Р В±Р Р…Р С•Р Р†Р В»Р ВµР Р…Р С‘Р Вµ РЎРѓРЎС“РЎвЂ°Р ВµРЎРѓРЎвЂљР Р†РЎС“РЎР‹РЎвЂ°Р ВµР в„– Р Р…Р В°РЎРѓРЎвЂљРЎР‚Р С•Р в„–Р С”Р С‘
                 if (property != null)
                 {
                     if (property.getValue() instanceof Boolean)
@@ -80,7 +84,7 @@ public class SettingsManager extends SettingsBase<Property> {
 
 	@Override
 	public boolean save() {
-		// Пытаемся создать файл, если его не существует
+		// Р СџРЎвЂ№РЎвЂљР В°Р ВµР СРЎРѓРЎРЏ РЎРѓР С•Р В·Р Т‘Р В°РЎвЂљРЎРЉ РЎвЂћР В°Р в„–Р В», Р ВµРЎРѓР В»Р С‘ Р ВµР С–Р С• Р Р…Р Вµ РЎРѓРЎС“РЎвЂ°Р ВµРЎРѓРЎвЂљР Р†РЎС“Р ВµРЎвЂљ
 		if (Helper.TryCreateFile(filePath)) {
 			
 			try (PrintWriter writer = new PrintWriter(filePath, "UTF-8")) {	

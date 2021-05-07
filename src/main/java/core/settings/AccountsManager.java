@@ -1,8 +1,8 @@
 package core.settings;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.PrintWriter;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.*;
 
 import core.login.*;
 import core.utils.Helper;
@@ -11,13 +11,22 @@ public class AccountsManager extends SettingsBase<PropertyGeneric<Account>> {
 
 	private String filePath = "accounts.txt";
 	
+	private PropertyGeneric<Account> user = new PropertyGeneric<Account>("user", new Account("user", "user", false));
+	private PropertyGeneric<Account> admin = new PropertyGeneric<Account>("admin", new Account("admin", "admin", true));
+	
+	public AccountsManager() {
+		// РРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј РЅР°СЃС‚СЂРѕР№РєРё
+		super.add(user);
+		super.add(admin);
+	}
+	
 	@Override
 	public boolean load() {
 
 		if (!Helper.TryCreateFile(filePath))
 			return false;
 		
-		try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+		try (BufferedReader reader = Files.newBufferedReader(Paths.get(filePath), StandardCharsets.UTF_8)) {
 
 			String line;
 
@@ -42,7 +51,7 @@ public class AccountsManager extends SettingsBase<PropertyGeneric<Account>> {
 
 	@Override
 	public boolean save() {
-		// Пытаемся создать файл, если его не существует
+		// Р•СЃР»Рё РµСЃС‚СЊ С„Р°Р№Р» РґР»СЏ СЃРѕС…СЂР°РЅРµРЅРёСЏ
 		if (Helper.TryCreateFile(filePath)) {
 					
 			try (PrintWriter writer = new PrintWriter(filePath, "UTF-8")) {	
