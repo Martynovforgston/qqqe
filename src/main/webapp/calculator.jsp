@@ -64,7 +64,7 @@ function openWindow() {
 			
 			<input type="checkbox" name="on" value="${isOn}"> Включить услугу мытья санузла<br> 
 			<label for="promo">Промокод</label> 
-			<input type="text" name="promo" id="promo" value="${promo}" placeholder="Enter promo"> <br> 
+			<input type="text" name="promo" id="promo" value="${promo}" placeholder="Введите промокод"> <br> 
 			<label for="promo">Стоимость</label>
 
 			<input type="text" name="result" id="section-to-print" value="${result}" disabled> <br>
