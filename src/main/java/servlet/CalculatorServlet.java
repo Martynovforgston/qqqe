@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -13,6 +14,7 @@ import javax.servlet.http.*;
 import javax.swing.JOptionPane;
 
 import core.calculator.*;
+import core.settings.Property;
 import core.settings.SettingsManager;
 import core.utils.Helper;
 
@@ -48,7 +50,8 @@ public class CalculatorServlet extends HttpServlet {
 			int count3leaf = Helper.parseInt(request.getParameter("3Leaf"));
 			int countM2 = Helper.parseInt(request.getParameter("Floor"));
 			
-			boolean isOn = Helper.parseBool(request.getParameter("on"));
+			boolean isOn = request.getParameter("on") != null;
+			System.out.println(Boolean.toString(isOn));
 			
 			String promoValue = Helper.parseString(request.getParameter("promo"));
 			String region = Helper.parseString(request.getParameter("district"));
@@ -63,6 +66,8 @@ public class CalculatorServlet extends HttpServlet {
 			request.setAttribute("count3leaf", count3leaf);
 			request.setAttribute("countM2", countM2);
 			request.setAttribute("isOn", isOn);
+			request.setAttribute("on", isOn);
+			request.setAttribute("promo", promoValue);
 			request.setAttribute("result", (Math.round(result * 100)) / 100);
 			// Выводим результат
 			request.getRequestDispatcher("calculator.jsp").forward(request, response);
@@ -84,20 +89,25 @@ public class CalculatorServlet extends HttpServlet {
 			System.out.println("Action is " + action + " and result is " + result.toString());
 			// Пользователь выбрал пункт меню сохранения файла
 			if (action.equals("saveToFile") && result > 0) {
-				System.out.println("Saving to file with result = " + result.toString());
-				try {
-	    			// Данные, которые будут занесены в файл
-	    			List<String> info = Arrays.asList(
-	    					"Итого: " + result + " руб"
-	    					);
-	    			// Путь до файла (в данном случае, в той же директории)
-	    			Path file = Paths.get("results.txt");
-	    			// Построчная запись данных в файл
-	    			Files.write(file, info);
-	    		} catch (Exception exp) {
-	    			System.out.println(exp.getMessage());
+				// Данные, которые будут занесены в файл
+    			List<String> info = Arrays.asList(
+    					"Кол-во одностворчатых окон: " + Helper.parseString(request.getParameter("count1leaf")),
+    					"Кол-во двустворчевых окон: " + Helper.parseString(request.getParameter("count2leaf")),
+    					"Кол-во трехстворченных окон: " + Helper.parseString(request.getParameter("count3leaf")),
+    					"Кол-во км м пола: " + Helper.parseString(request.getParameter("countM2")),
+    					"Услуга мытья санузла: " + (Helper.parseBool(request.getParameter("isOn")) ? "включена" : "отсутствует"),
+    					"Использованный промокод: " + (Helper.parseString(request.getParameter("promo")).equals("") ? "отсутствует" : Helper.parseString(request.getParameter("promo"))),
+    					"Итого: " + result + " руб"
+    			);
+				try (PrintWriter writer = new PrintWriter("results.txt", "UTF-8")) {	
+					for (String content: info) {
+						writer.println(content);
+					}
+					writer.close();
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
 	    			request.setAttribute("message", "Не удалось сохранить файл");
-	    		}
+				}
 			}
 			
 			request.getRequestDispatcher("/calculator.jsp").forward(request, response);
