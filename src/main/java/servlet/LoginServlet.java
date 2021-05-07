@@ -8,7 +8,7 @@ import javax.servlet.http.*;
 
 import core.login.*;
 
-@WebServlet(name = "LoginServlet", urlPatterns = "/login")
+@WebServlet(name = "LoginServlet", urlPatterns = {"/login", "/", ""})
 public class LoginServlet extends HttpServlet {
 	
 	private LoginController controller;
@@ -28,24 +28,25 @@ public class LoginServlet extends HttpServlet {
 		
 		// Не успешная авторизация
 		if (account == null) { 
-			request.setAttribute("message", "Неправильный логин или пароль");
+			request.setAttribute("message", "Неверный логин или пароль");
 			request.getRequestDispatcher("/login.jsp").forward(request, response);
-		} 
-		// Успешная автоизация
+		}
+		// Успешная авторизация
 		else {
 			request.getSession().setAttribute("logged", true);
+			request.getSession().setAttribute("account", account);
 			// В зависимости от типа аккаунта получаем нужную панель
 			if (account.isAdmin()) {
-				request.getRequestDispatcher("/admin").forward(request, response);
+				response.sendRedirect(request.getContextPath() + "/admin");
 			} else {
-				request.getRequestDispatcher("/calculator").forward(request, response);
+				response.sendRedirect(request.getContextPath() + "/calculator");
 			}
 		}
 	}
 	
 	@Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        req.getRequestDispatcher("login.jsp").forward(req, resp);
+		request.getRequestDispatcher("login.jsp").forward(request, response);
     }
 }
