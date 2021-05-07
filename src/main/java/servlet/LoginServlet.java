@@ -8,7 +8,7 @@ import javax.servlet.http.*;
 
 import core.login.*;
 
-@WebServlet(name = "LoginServlet", urlPatterns = {"/login", "/", ""})
+@WebServlet(name = "LoginServlet", urlPatterns = {"/login", ""})
 public class LoginServlet extends HttpServlet {
 	
 	private LoginController controller;

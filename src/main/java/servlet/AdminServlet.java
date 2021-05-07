@@ -26,7 +26,7 @@ public class AdminServlet extends HttpServlet {
 			return;
 		}
 		// Если пользователь авторизован, но его аккаунт не найден или не имеет админские привилегии
-		else if (request.getAttribute("account") == null || ((Account)(request.getAttribute("account"))).isAdmin() == false) {
+		else if (request.getSession().getAttribute("account") == null || ((Account)(request.getSession().getAttribute("account"))).isAdmin() == false) {
 			request.setAttribute("message", "Недостаточно прав");
 			response.sendRedirect(request.getContextPath() + "/login");
 			return;
@@ -60,12 +60,14 @@ public class AdminServlet extends HttpServlet {
             throws ServletException, IOException {
 		// Если пользователь не авторизован, отправляем его на страницу авторизацию
 		if (req.getSession().getAttribute("logged") == null || !(Boolean)req.getSession().getAttribute("logged")) {
+			System.out.println("not logged, redirecting to login panel...");
 			req.removeAttribute("message");
 			resp.sendRedirect(req.getContextPath() + "/login");
 			return;
 		}
 		// Если пользователь авторизован, но его аккаунт не найден или не имеет админские привилегии
-		else if (req.getAttribute("account") == null || ((Account)(req.getAttribute("account"))).isAdmin() == false) {
+		else if (req.getSession().getAttribute("account") == null || ((Account)(req.getSession().getAttribute("account"))).isAdmin() == false) {
+			System.out.println("not a admin, redirecting to login panel...");
 			req.setAttribute("message", "Недостаточно прав");
 			resp.sendRedirect(req.getContextPath() + "/login");
 			return;
