@@ -7,7 +7,8 @@
 	<link rel="stylesheet" href="style.css">
 </head>
 <body>
-	<form action="${pageContext.request.contextPath}/login" method="post" style="text-align=center;">
+<center>
+	<form action="${pageContext.request.contextPath}/login" method="post">
 		<div class="header">
 			<h2>Вход в калькулятор клининговых услуг для квартир</h2>
 		</div>
@@ -18,5 +19,6 @@
 			<button type="submit" name="sign" value="Sign" class="btn">Войти</button>
 		</div>
 	</form>
+	</center>
 </body>
 </html>
