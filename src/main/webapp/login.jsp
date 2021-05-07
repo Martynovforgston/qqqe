@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Авторизация</title>
-	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/style.css">
 </head>
 <body>
 	<form action="${pageContext.request.contextPath}/login" method="post" align="center">
