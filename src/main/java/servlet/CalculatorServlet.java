@@ -2,19 +2,15 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-import javax.swing.JOptionPane;
 
 import core.calculator.*;
-import core.settings.Property;
 import core.settings.SettingsManager;
 import core.utils.Helper;
 
@@ -23,12 +19,14 @@ public class CalculatorServlet extends HttpServlet {
 	
 	SettingsManager settings;
 	ICalculator calculator;
-	Promo promo;
+	List<Promo> promos;
 	
 	@Override
 	public void init() throws ServletException {
 		calculator = new Calculator21();
-		promo = new Promo21();
+		promos = new ArrayList<Promo>();
+		promos.add(new Promo21());
+		promos.add(new SuperPromo());
 		settings = new SettingsManager();
 		settings.load();
 	}
@@ -57,7 +55,18 @@ public class CalculatorServlet extends HttpServlet {
 			String region = Helper.parseString(request.getParameter("district"));
 			
 			double rcoeff = Helper.getRegionCoeff(region, settings);
-			double pcoeff = promo.getCoeff(promoValue);
+			double pcoeff = 1;
+			
+			// Проходимся по типам промокодов
+			for(Promo promo: this.promos) {
+				double coeff = promo.getCoeff(promoValue);
+				// Если промокод дал скидку, сохраняем и выходим из цикла
+				if (coeff < 1) {
+					pcoeff = coeff;
+					break;
+				}
+			}
+			
 			// Делаем расчет
 			double result = calculator.calculate(rcoeff, pcoeff, count1leaf, count2leaf, count3leaf, countM2, isOn);
 			// Обновляем форму
