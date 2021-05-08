@@ -98,6 +98,13 @@ public class CalculatorServlet extends HttpServlet {
 			System.out.println("Action is " + action + " and result is " + result.toString());
 			// Пользователь выбрал пункт меню сохранения файла
 			if (action.equals("saveToFile") && result > 0) {
+				if (!Helper.TryCreateFile("results.txt"))
+				{
+					request.setAttribute("message", "Не удалось сохранить файл");
+					request.getRequestDispatcher("/calculator.jsp").forward(request, response);
+					return;
+				}
+				
 				// Данные, которые будут занесены в файл
     			List<String> info = Arrays.asList(
     					"Кол-во одностворчатых окон: " + Helper.parseString(request.getParameter("count1leaf")),
