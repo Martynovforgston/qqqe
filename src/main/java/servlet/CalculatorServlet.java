@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -98,29 +99,21 @@ public class CalculatorServlet extends HttpServlet {
 			System.out.println("Action is " + action + " and result is " + result.toString());
 			// Пользователь выбрал пункт меню сохранения файла
 			if (action.equals("saveToFile") && result > 0) {
-				if (!Helper.TryCreateFile("results.txt"))
-				{
-					request.setAttribute("message", "Не удалось сохранить файл");
-					request.getRequestDispatcher("/calculator.jsp").forward(request, response);
-					return;
-				}
 				
-				// Данные, которые будут занесены в файл
-    			List<String> info = Arrays.asList(
-    					"Кол-во одностворчатых окон: " + Helper.parseString(request.getParameter("count1leaf")),
-    					"Кол-во двустворчевых окон: " + Helper.parseString(request.getParameter("count2leaf")),
-    					"Кол-во трехстворченных окон: " + Helper.parseString(request.getParameter("count3leaf")),
-    					"Кол-во км м пола: " + Helper.parseString(request.getParameter("countM2")),
-    					"Услуга мытья санузла: " + (Helper.parseBool(request.getParameter("isOn")) ? "включена" : "отсутствует"),
-    					"Использованный промокод: " + (Helper.parseString(request.getParameter("promo")).equals("") ? "отсутствует" : Helper.parseString(request.getParameter("promo"))),
-    					"Итого: " + result + " руб"
-    			);
-				try (PrintWriter writer = new PrintWriter("results.txt", "UTF-8")) {	
-					for (String content: info) {
-						writer.println(content);
-					}
-					writer.close();
-				} catch (Exception e) {
+				response.setContentType("text/txt");
+				response.setHeader("Content-disposition", "attachment; filename=results.txt");
+
+				String data = "Кол-во одностворчатых окон: " + Helper.parseString(request.getParameter("count1leaf")) + "\n";
+				data += "Кол-во двустворчевых окон: " + Helper.parseString(request.getParameter("count2leaf")) + "\n";
+    			data += "Кол-во трехстворченных окон: " + Helper.parseString(request.getParameter("count3leaf")) + "\n";
+    			data += "Кол-во км м пола: " + Helper.parseString(request.getParameter("countM2")) + "\n";
+    			data += "Услуга мытья санузла: " + (Helper.parseBool(request.getParameter("isOn")) ? "включена" : "отсутствует") + "\n";
+    			data += "Использованный промокод: " + (Helper.parseString(request.getParameter("promo")).equals("") ? "отсутствует" : Helper.parseString(request.getParameter("promo"))) + "\n";
+    			data += "Итого: " + result + " руб" + "\n";
+				
+		        try (OutputStream out = response.getOutputStream()) {
+		            out.write(data.getBytes());
+		        } catch (Exception e) {
 					System.out.println(e.getMessage());
 	    			request.setAttribute("message", "Не удалось сохранить файл");
 				}
